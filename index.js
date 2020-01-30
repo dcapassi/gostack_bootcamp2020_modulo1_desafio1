@@ -3,7 +3,7 @@ const server = express();
 
 server.use(express.json());
 server.use(logRequests);
-
+var requestCount = 0;
 projects = [];
 
 server.get("/projects", (req, res) => {
@@ -68,7 +68,10 @@ function checkIfIdExists(req, res, next) {
 }
 
 function logRequests(req, res, next) {
-  console.log(`HTTP Request Method: ${req.method}, URL: ${req.url}`);
+  requestCount++;
+  console.log(
+    `Request Number: ${requestCount}: Method: ${req.method}, URL: ${req.url}`
+  );
   next();
 }
 
