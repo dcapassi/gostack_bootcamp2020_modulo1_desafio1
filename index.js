@@ -55,15 +55,11 @@ server.post("/projects/:id/tasks", checkIfIdExists, (req, res) => {
 //Middlewares
 function checkIfIdExists(req, res, next) {
   const { id } = req.params;
-  let flag = false;
-  projects.map(entry => {
-    if (entry["id"] == id) {
-      flag = true;
-    }
-  });
-  if (flag == false) {
+
+  if (projects.find(value => value.id == id) == undefined) {
     return res.status(400).json({ error: "Project ID does not exist" });
   }
+
   next();
 }
 
